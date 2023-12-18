@@ -7,7 +7,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import colors from "colors";
 import fileUpload from "express-fileupload";
-import errorHandler from "./middleware/error.js";
+import errorHandler from "./middleware/errorHandler.js";
 import connectDB from "./config/db.js";
 
 //Load env vars (due to configuration in a separate file (e.g., config.env), we should specify the path when calling dotenv.config():
@@ -17,10 +17,10 @@ dotenv.config({ path: "config/config.env" });
 connectDB();
 
 // Route files
-import bootcamps from "./routes/bootcamps.js";
-import courses from "./routes/courses.js";
-import auth from "./routes/auth.js";
-import users from "./routes/users.js"
+import bootcamps from "./routes/bootcampsRoutes.js";
+import courses from "./routes/coursesRoutes.js";
+import auth from "./routes/authRoutes.js";
+import users from "./routes/usersRoutes.js"
 
 const app = express();
 

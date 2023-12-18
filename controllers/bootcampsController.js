@@ -1,6 +1,6 @@
 import path from "path";
 import ErrorResponse from "../utils/errorResponse.js";
-import asyncHandler from "../middleware/async.js";
+import asyncHandler from "../middleware/asyncHandler.js";
 import geocoder from "../utils/geocoder.js";
 import Bootcamp from "../models/Bootcamp.js";
 import dotenv from "dotenv";

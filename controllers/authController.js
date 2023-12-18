@@ -1,8 +1,8 @@
 // Authentication
-import ErrorResponse from "./../utils/errorResponse.js";
-import asyncHandler from "./../middleware/async.js";
-import User from "./../models/User.js";
-import { sendEmail } from "./../utils/sendEmail.js";
+import ErrorResponse from "../utils/errorResponse.js";
+import asyncHandler from "../middleware/asyncHandler.js";
+import User from "../models/User.js";
+import { sendEmail } from "../utils/sendEmail.js";
 import crypto from "node:crypto";
 import { sendTokenResponse } from "../utils/sendTokenResponse.js";
 
@@ -178,7 +178,8 @@ const resetPassword = asyncHandler(async (req, res, next) => {
   // Set new password
   user.password = req.body.password;
   // when we set a field to undefined - it just "goes away"
-  user.resetPasswordToken = undefined; // (*get encrypted in User middleware while "if (!this.isModified('password')"" WON'T fire off due to the password modification)
+  user.resetPasswordToken = undefined; // (*get encrypted in User middleware while
+  // "if (!this.isModified('password')" WON'T fire off due to the password modification)
   user.resetPasswordExpire = undefined;
   await user.save();
 

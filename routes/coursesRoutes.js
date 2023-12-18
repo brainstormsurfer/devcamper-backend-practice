@@ -6,7 +6,7 @@ import {
   addCourse,
   updateCourse,
   deleteCourse,
-} from "../controllers/courses.js";
+} from "../controllers/coursesController.js";
 
 import Course from "../models/Course.js";
 
@@ -14,7 +14,7 @@ import Course from "../models/Course.js";
 const router = express.Router({ mergeParams: true });
 
 import { advancedResults } from "../middleware/advancedResults.js";
-import { authorize, protect } from "../middleware/auth.js";
+import { authorize, protect } from "../middleware/authMiddleware.js";
 
 router
   .route("/")

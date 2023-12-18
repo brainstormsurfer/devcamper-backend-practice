@@ -6,14 +6,14 @@ import {
   createUser,
   updateUser,
   deleteUser,
-} from "../controllers/users.js";
+} from "../controllers/usersController.js";
 
 import User from "../models/User.js";
 
 const router = express.Router({ mergeParams: true });
 
 import { advancedResults }  from "../middleware/advancedResults.js";
-import { protect, authorize } from "../middleware/auth.js";
+import { protect, authorize } from "../middleware/authMiddleware.js";
 
 // any route below those middlewares is protected, and requires to be an admin
 router.use(protect);

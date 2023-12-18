@@ -1,7 +1,7 @@
 // Authentication
-import ErrorResponse from "./../utils/errorResponse.js";
-import asyncHandler from "./../middleware/async.js";
-import User from "./../models/User.js";
+import ErrorResponse from "../utils/errorResponse.js";
+import asyncHandler from "../middleware/asyncHandler.js";
+import User from "../models/User.js";
 
 // @desc    Get all users
 // @router  GET /api/v1/auth/users
