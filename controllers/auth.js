@@ -4,6 +4,7 @@ import asyncHandler from "./../middleware/async.js";
 import User from "./../models/User.js";
 import { sendEmail } from "./../utils/sendEmail.js";
 import crypto from "node:crypto";
+import { sendTokenResponse } from "../utils/sendTokenResponse.js";
 
 // @desc    Register user
 // @router  GET /api/v1/auth/register
@@ -19,7 +20,9 @@ const register = asyncHandler(async (req, res, next) => {
     role,
   });
 
-  // Create token - (lowercase user because we're using method, not static which we get from the Model.) and this is how we get the access with this method in the Schema (UserSchema.methods.getSignedJwtToken)
+  // Create token - (lowercase user because we're using model instance('s) method, 
+  // not a static which we get from the Model prototype.) 
+  // We get the access to this method with the Schema by calling UserSchema.methods.getSignedJwtToken
   const token = user.getSignedJwtToken();
 
   res.status(200).json({ success: true, token });
@@ -50,7 +53,7 @@ const login = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Invalid credentials", 401));
   }
 
-  sendTokenResponse(user, 200, res);
+  sendTokenResponse(user, 200, res);  
 
   // Create token (Early version before the cookie-parser mechanism,
   // and sending the token with a cookie within) :
@@ -60,7 +63,7 @@ const login = asyncHandler(async (req, res, next) => {
 
 // (a route to -)
 // @desc    GET current logged in user
-// @router  POST /api/v1/auth/me
+// @router  GET /api/v1/auth/me
 // @access  Private
 const getMe = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
@@ -180,33 +183,5 @@ const resetPassword = asyncHandler(async (req, res, next) => {
   sendTokenResponse(user, 200, res);
 });
 
-// Get token from model, create cookie and send response
-const sendTokenResponse = (user, statusCode, res) => {
-  // Create token
-  const token = user.getSignedJwtToken();
-
-  const options = {
-    // A great mistake:
-    // I accidentally wrote "expires" without an 's', different from Brad's "expires", and probably could never guess that this is the reason that the server refuse to work. (apparently, syntax has changed)
-    expire: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
-    ),
-    // we only want the cookie to be access through the client-side's script so -
-    httpOnly: true,
-  };
-
-  // securing our cookie with edit the secure flag to true ("https") for production mode
-  if (process.env.NODE_ENV === "production") {
-    options.secure = true;
-  }
-
-  // we send a token back in the response (key/name-of token + token)
-  // we also sending a cookie
-  // and it's really up to the client-side how they want to handle it:
-  res.status(statusCode).cookie("token", token, options).json({
-    success: true,
-    token,
-  });
-};
 
 export { register, login, getMe, forgotPassword, resetPassword, updateDetails, updatePassword };

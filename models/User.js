@@ -44,19 +44,20 @@ UserSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Sign JWT and return - by method on what we initialized / get from the model
-// ( while static functions are called on the model itself
-// And this is why and how it has access to "this")
+// With ".methods" we set an instance method ('getSignedJwtToken'),
+// while static functions called by the model itself (e.g. User.delete())
+// Here we create the signing-JWT to the user (User's instance) that get initialized from the model
+// (And this is also why and how it has access to "this")
 UserSchema.methods.getSignedJwtToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };
 
-// Match user entered password to hashed password in database
+// Match user's entered password to hashed password in database
 // (compare between the entered pw which is plain text, to
 // the hashed pw in the database for this particular user, which is encrypted
-// and return a promise which is true/false )
+// and return a promise with a boolean value )
 UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

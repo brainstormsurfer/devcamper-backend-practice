@@ -6,14 +6,15 @@ import {
   addCourse,
   updateCourse,
   deleteCourse,
-  //   getBootcampsInRadius,
 } from "../controllers/courses.js";
 
-import { protect } from "../middleware/auth.js";
 import Course from "../models/Course.js";
-import { advancedResults } from "../middleware/advancedResults.js";
 
+// Docs of merged: Preserve the req.params values from the parent router. If the parent and the child have conflicting param names, the child’s value take precedence.  @default false
 const router = express.Router({ mergeParams: true });
+
+import { advancedResults } from "../middleware/advancedResults.js";
+import { authorize, protect } from "../middleware/auth.js";
 
 router
   .route("/")
@@ -29,7 +30,7 @@ router
 router
   .route("/:id")
   .get(getCourse)
-  .put(protect, updateCourse)
-  .delete(protect, deleteCourse);
+  .put(protect, authorize('publisher', 'admin'), updateCourse)
+  .delete(protect, authorize('publisher', 'admin'), deleteCourse);
 
 export default router;
