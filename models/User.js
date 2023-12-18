@@ -56,7 +56,7 @@ UserSchema.methods.getSignedJwtToken = function () {
 // Match user entered password to hashed password in database
 // (compare between the entered pw which is plain text, to
 // the hashed pw in the database for this particular user, which is encrypted
-// and return a promise which true/false )
+// and return a promise which is true/false )
 UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

@@ -2,7 +2,6 @@ import ErrorResponse from "../utils/errorResponse.js";
 import asyncHandler from "../middleware/async.js";
 import Course from "../models/Course.js";
 import Bootcamp from "../models/Bootcamp.js";
-import User from "../models/User.js";
 
 // @desc    Get all courses
 // @route   GET /api/v1/courses

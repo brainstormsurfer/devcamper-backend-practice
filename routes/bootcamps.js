@@ -9,14 +9,16 @@ import {
   getBootcampsInRadius,
   bootcampPhotoUpload,
 } from "../controllers/bootcamps.js";
-import { protect, authorize } from "../middleware/auth.js";
+
 import Bootcamp from "../models/Bootcamp.js";
-import {advancedResults} from "../middleware/advancedResults.js";
 
 // Include other courses routers
 import courseRouter from "./courses.js";
 
 const router = express.Router();
+
+import {advancedResults} from "../middleware/advancedResults.js";
+import { protect, authorize } from "../middleware/auth.js";
 
 // Re-route into other resource routers
 router.use("/:bootcampId/courses", courseRouter);
