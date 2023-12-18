@@ -5,7 +5,8 @@ export const sendTokenResponse = (user, statusCode, res) => {
   
     const options = {
       // A great mistake:
-      // I accidentally wrote "expires" without an 's', different from Brad's "expires", and probably could never guess that this is the reason that the server refuse to work. (apparently, syntax has changed)
+      // I accidentally wrote "expires" without an 's', different from Brad's "expires", and probably could never guess that this is the reason that the server refuse to work. 
+      // (apparently, syntax has changed)
       expire: new Date(
         Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
       ),
@@ -18,9 +19,9 @@ export const sendTokenResponse = (user, statusCode, res) => {
       options.secure = true;
     }
   
-    // we send a token back in the response (key/name-of token + token)
+    // we send a token back in the response (key/name-of token + token itself)
     // we also sending a cookie
-    // and it's really up to the client-side how they want to handle it:
+    // and it's up to the client-side how they want to handle it:
     res.status(statusCode).cookie("token", token, options).json({
       success: true,
       token,

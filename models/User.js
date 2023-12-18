@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema({
 
 // Encrypt password using bcrypt
 // (*A middleware event which triggered by the saving action)
-//  checks whether the password field is modified before hashing it. If the password is not modified, it means the document is being saved for reasons other than a password change, so the middleware skips the hashing process.
+// checks whether the password field is modified before hashing it. If the password is not modified, it means the document is being saved for reasons other than a password change, so the middleware skips the hashing process.
 UserSchema.pre("save", async function (next) {
   if (!this.isModified('password')) {
     next()

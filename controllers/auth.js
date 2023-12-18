@@ -53,7 +53,8 @@ const login = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Invalid credentials", 401));
   }
 
-  sendTokenResponse(user, 200, res);  
+  sendTokenResponse(user, 200, res);
+
 
   // Create token (Early version before the cookie-parser mechanism,
   // and sending the token with a cookie within) :
@@ -66,7 +67,8 @@ const login = asyncHandler(async (req, res, next) => {
 // @router  GET /api/v1/auth/me
 // @access  Private
 const getMe = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  // const user = await User.findById(req.user.id);
+  const user = req.user;
 
   res.status(200).json({
     success: true,

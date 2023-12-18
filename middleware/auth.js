@@ -30,7 +30,8 @@ const protect = asyncHandler(async (req, res, next) => {
     // - In every route which we use this middleware we'll have access to req.user
     // in any of the user fields.
 
-    // AND if the *protect middleware* won't be defined in the auth route - then we won't have access to the req.user and it won't be available.
+    // AND if the *protect middleware* won't be defined in the auth route - 
+    // then we won't have access to the req.user.
     req.user = await User.findById(decoded.id);
     next();
   } catch (err) {
