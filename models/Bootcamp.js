@@ -136,16 +136,36 @@ BootcampSchema.pre("save", async function (next) {
 // Cascade delete courses when a bootcamp is deleted
 BootcampSchema.pre('deleteOne',{ document: true, query: false }, async function (next) {
     console.log(`Courses being removed from bootcamp ${this._id}`)
+    // once we delete a bootcamp we can access the fields with "this.whateverfield"
+    // and then we gonna just match bootcamp in the courses with the id 
+    // because in the Course model, the bootcamp's gonna be the ObjectId
+    // so it's gonna know to only delete courses for this particular bootcamp
+    // (and the approach to the fields despite the deleting is thanks to the "pre")
     await this.model('Course').deleteMany({ bootcamp: this._id })
     next()
   })
 
-// Reverse populate with virtuals
+// Cascade delete reviews when a bootcamp is deleted
+BootcampSchema.pre('deleteOne',{ document: true, query: false }, async function (next) {
+    console.log(`Reviews being removed from bootcamp ${this._id}`)
+    await this.model('Review').deleteMany({ bootcamp: this._id })
+    next()
+  })
+
+// Reverse populate with virtual field/attr
 BootcampSchema.virtual('courses',{
   ref: 'Course',
   localField: '_id',
   foreignField: 'bootcamp',
-  justOne: false
+  justOne: false // we want to get a field called "courses" and array of all courses
+})
+
+// Reverse populate with virtual field/attr
+BootcampSchema.virtual('reviews',{
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'bootcamp',
+  justOne: false // we want to get a field called "reviews" and array of all reviews
 })
 
 export default mongoose.model("Bootcamp", BootcampSchema);

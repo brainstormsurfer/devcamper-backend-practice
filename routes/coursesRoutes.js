@@ -18,12 +18,14 @@ import { authorize, protect } from "../middleware/authMiddleware.js";
 
 router
   .route("/")
-  .get(
-    advancedResults(Course, {
+  .get(  
+    advancedResults(Course, {  // Get all courses
       path: "bootcamp",
       select: "name description",
     }),
-    getCourses
+    getCourses // Get courses for a specific bootcamp (not using advancedResults)
+    // (via Bootcamp's reverse populate with virtuals)
+    // And via the {mergeParams: true} reviewsRouter property
   )
   .post(protect, addCourse);
 

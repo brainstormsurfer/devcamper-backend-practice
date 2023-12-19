@@ -11,7 +11,9 @@ const getCourses = asyncHandler(async (req, res, next) => {
   if (req.params.bootcampId) {
     const courses = await Course.find({ bootcamp: req.params.bootcampId });
 
-    // getting courses for a specific bootcamp (not using advanced in that option)
+    // getting courses for a specific bootcamp (not using advanced results)
+    // via Bootcamp's reverse populate with virtuals,
+    // And via the {mergeParams: true} reviewsRouter property
     return res.status(200).json({
       success: true,
       count: courses.length,
@@ -42,12 +44,13 @@ const getCourse = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: course });
 });
 
+// (preparation: Course is/as  Bootcamp's virtual field/attribute)
 // @desc    Add course
 // @route   POST /api/v1/bootcamps/:bootcampId/courses
 // @access  Private
 const addCourse = asyncHandler(async (req, res, next) => {
-  req.body.bootcamp = req.params.bootcampId;
-  req.body.user = req.user.id; // Why included here but not on the PUT/DELETE routes
+  req.body.bootcamp = req.params.bootcampId; 
+  req.body.user = req.user.id; 
 
   const bootcamp = await Bootcamp.findById(req.params.bootcampId);
 
