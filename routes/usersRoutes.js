@@ -10,10 +10,14 @@ import {
 
 import User from "../models/User.js";
 
-const router = express.Router({ mergeParams: true });
 
 import { advancedResults }  from "../middleware/advancedResults.js";
 import { protect, authorize } from "../middleware/authMiddleware.js";
+
+const router = express.Router({ mergeParams: true });
+
+// ! temp
+// router.route("/").get(advancedResults(User), getUsers);
 
 // any route below those middlewares is protected, and requires to be an admin
 router.use(protect);

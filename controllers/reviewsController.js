@@ -63,7 +63,7 @@ const addReview = asyncHandler(async (req, res, next) => {
   res.status(201).json({ success: true, data: review });
 });
 
-// @desc    Update course
+// @desc    Update review
 // @route   PUT /api/v1/reviews/:id
 // @access  Private
 const updateReview = asyncHandler(async (req, res, next) => {
@@ -76,26 +76,31 @@ const updateReview = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // Make sure user is bootcamp owner
-  if (review.user.toString() !== req.user.id && req.user.role !== "admin") {
+  // Make sure user is review provider
+  // if (review.user.toString() !== req.user.id || req.user.role === "publisher") {
+  if (review.user.toString() !== req.user.id && req.user.role ==! "admin") {
     return next(
       new ErrorResponse(
-        `User ${req.user.id} is not authorize to update course ${course._id}`
+        `User ${req.user.id} is not authorize to update review ${review._id}`
       ),
       401
     );
   }
-
-  review = await Review.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    //options
+  
+  // await review.updateOne(req.body, {
+  //   new: true,
+  //   runValidators: true,
+  // });
+  review = await Review.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
 
+
   res.status(201).json({ success: true, data: review });
 });
 
-// @desc    Delete course
+// @desc    Delete review
 // @route   DELETE /api/v1/reviews/:id
 // @access  Private
 const deleteReview = asyncHandler(async (req, res, next) => {
@@ -108,11 +113,12 @@ const deleteReview = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // Make sure user is bootcamp owner
-  if (review.user.toString() !== req.user.id && req.user.role !== "admin") {
+  // Make sure user is review owner
+  // if (review.user.toString() !== req.user.id || req.user.role === "publisher") {
+    if (review.user.toString() !== req.user.id && req.user.role !== "admin") {
     return next(
       new ErrorResponse(
-        `User ${req.user.id} is not authorize to delete course ${review._id}`
+        `User ${req.user.id} is not authorize to delete review ${review._id}`
       ),
       404
     );

@@ -44,9 +44,8 @@ const CourseSchema = new mongoose.Schema({
 });
 
 // Static method to get avg of course tuitions
-CourseSchema.statics.getAverageCost = async function (bootcampId) {
-  // console.log("Calculating avg cost...".blue);
-
+// Static method to get avg of course tuitions
+CourseSchema.statics.getAverageCost = async function (bootcampId, deletedCourseTuition) {
   const obj = await this.aggregate([
     {
       $match: { bootcamp: bootcampId },
@@ -55,21 +54,29 @@ CourseSchema.statics.getAverageCost = async function (bootcampId) {
       $group: {
         _id: "$bootcamp",
         averageCost: { $avg: "$tuition" },
+        count: { $sum: 1 }
       },
     },
   ]);
-  
-  // console.log("averageCost", Math.ceil(obj[0].averageCost / 10) * 10)
 
-  try {
-    await this.model("Bootcamp").findByIdAndUpdate(bootcampId, {
-      // rounded up with ceil, and then rounded higher to the nearest 10 divider
-      averageCost: Math.ceil(obj[0].averageCost / 10) * 10
-    });
-  } catch (err) {
-    console.error(err);
+  if (obj.length > 0) {
+    // If the deletedCourseTuition is provided, subtract it from the aggregate
+    if (deletedCourseTuition) {
+      const updatedTotalTuition = obj[0].averageCost * obj[0].count - deletedCourseTuition;
+      const updatedAverageCost = obj[0].count > 1 ? updatedTotalTuition / (obj[0].count - 1) : 0;
+      obj[0].averageCost = updatedAverageCost;
+    }
+
+    try {
+      await this.model("Bootcamp").findByIdAndUpdate(bootcampId, {
+        averageCost: Math.ceil(obj[0].averageCost / 10) * 10
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 };
+
 
 // Call getAverage after save
 CourseSchema.post("save", function () {
@@ -77,8 +84,11 @@ CourseSchema.post("save", function () {
 });
 
 // Call getAverage before remove
-CourseSchema.pre("deleteOne", function () {
-  this.constructor.getAverageCost(this.bootcamp);
+// Call getAverageCost before delete
+CourseSchema.pre('deleteOne', { document: true }, async function () {
+  // Call getAverageCost before deleting the course
+  await this.constructor.getAverageCost(this.bootcamp, this.tuition);
 });
+
 
 export default mongoose.model("Course", CourseSchema);

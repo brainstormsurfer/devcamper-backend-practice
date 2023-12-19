@@ -10,7 +10,9 @@ import {
 
 import Course from "../models/Course.js";
 
-// Docs of merged: Preserve the req.params values from the parent router. If the parent and the child have conflicting param names, the child’s value take precedence.  @default false
+// Docs of merged: Preserve the req.params values from the parent router. 
+// If the parent and the child have conflicting param names, the child’s value take precedence.
+//  @default false
 const router = express.Router({ mergeParams: true });
 
 import { advancedResults } from "../middleware/advancedResults.js";
@@ -25,9 +27,9 @@ router
     }),
     getCourses // Get courses for a specific bootcamp (not using advancedResults)
     // (via Bootcamp's reverse populate with virtuals)
-    // And via the {mergeParams: true} reviewsRouter property
+    // And via the {mergeParams: true}
   )
-  .post(protect, addCourse);
+  .post(protect,  authorize('publisher', 'admin'), addCourse);
 
 router
   .route("/:id")

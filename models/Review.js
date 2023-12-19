@@ -46,27 +46,29 @@ ReviewSchema.statics.getAverageRating = async function (bootcampId) {
     {
       $group: {
         _id: "$bootcamp",
+        // average (Aggregation) returns the average value of the numeric values. ignores non-numeric values (returns null)
         averageRating: { $avg: "$rating" },
       },
     },
   ]);
   
-  try {
-    await this.model("Bootcamp").findByIdAndUpdate(bootcampId, {
-      averageRating: obj[0].averageRating
-    })    
-  } catch (err) {
-    console.error(err);
-  }
+  // try {
+  //   const testSaveTrigger = await this.model("Bootcamp").findByIdAndUpdate(bootcampId, {
+  //     averageRating: obj[0].averageRating
+  //   })
+  //   console.log("test save trigger from update controller: ", testSaveTrigger)
+  // } catch (err) {
+  //   console.error(err);
+  // }
 };
 
-// Call getAverage after save
-ReviewSchema.post("save", function () {
-  this.constructor.getAverageRating(this.bootcamp);
+// Call getAverageRating after save
+ReviewSchema.post("save", async function () {
+  await this.constructor.getAverageRating(this.bootcamp);
 });
 
-// Call getAverage before remove
-ReviewSchema.pre("deleteOne", function () {
+// Call getAverageRating before delete
+ReviewSchema.pre('deleteOne', function() {
   this.constructor.getAverageRating(this.bootcamp);
 });
 

@@ -24,7 +24,7 @@ import { protect, authorize } from "../middleware/authMiddleware.js";
 // Re-route into other resource routers
 router.use("/:bootcampId/courses", coursesRouter);
 router.use("/:bootcampId/reviews", reviewsRouter);
-    // getting courses/reviews for a specific bootcamp (not using advanced results)
+    // getting courses/reviews for a specific bootcamp (not using advanced results
     // via Bootcamp's reverse populate with virtuals,
     // And via the {mergeParams: true} reviewsRouter property
 

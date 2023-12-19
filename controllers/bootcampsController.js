@@ -107,7 +107,7 @@ const deleteBootcamp = asyncHandler(async (req, res, next) => {
   }
 
   // (*middleware of type - Document Middleware)
-  await bootcamp.deleteOne();
+  bootcamp.deleteOne();
   res.status(200).json({ success: true, data: {} });
 });
 

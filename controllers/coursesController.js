@@ -13,7 +13,7 @@ const getCourses = asyncHandler(async (req, res, next) => {
 
     // getting courses for a specific bootcamp (not using advanced results)
     // via Bootcamp's reverse populate with virtuals,
-    // And via the {mergeParams: true} reviewsRouter property
+    // And via the {mergeParams: true} coursesRouter property
     return res.status(200).json({
       success: true,
       count: courses.length,
@@ -104,6 +104,7 @@ const updateCourse = asyncHandler(async (req, res, next) => {
     runValidators: true,
   });
 
+  await course.save();
   res.status(201).json({ success: true, data: course });
 });
 
@@ -111,24 +112,39 @@ const updateCourse = asyncHandler(async (req, res, next) => {
 // @route   DELETE /api/v1/courses/:id
 // @access  Private
 const deleteCourse = asyncHandler(async (req, res, next) => {
-  const course = await Course.findById(req.params.id);
+const course = await Course.findById(req.params.id);
 
   if (!course) {
     return next(
-      new ErrorResponse(`No course with the id of ${req.params.id}`),
+      new ErrorResponse(`No course with the id of ${req.params.id}`, 404),
       404
     );
   }
 
- // Make sure user is bootcamp owner
-  if (course.user.toString() !== req.user.id && req.user.role !== 'admin') {
+  // Authorization check
+  if (
+    course.user.toString() !== req.user.id &&
+    req.user.role !== "admin"
+  ) {
     return next(
-      new ErrorResponse(`User ${req.user.id} is not authorize to delete course ${course._id}`),
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to delete course ${course._id}`,
+        404
+      ),
       404
     );
   }
 
-  await course.deleteOne()
+  // Update average cost before deletion
+  // try {
+  //   await course.constructor.getAverageCost(course.bootcamp);
+  // } catch (err) {
+  //   console.error("Error updating average cost:", err);
+  // }
+
+  // Delete the course
+  await course.deleteOne();
+
   res.status(201).json({ success: true, data: {} });
 });
 
