@@ -62,13 +62,30 @@ const login = asyncHandler(async (req, res, next) => {
   // res.status(200).json({ success: true, token });
 });
 
-// (a route to -)
+
+// @desc    Log user out / clear cookie
+// @router  GET /api/v1/auth/logout
+// @access  Private
+const logout = asyncHandler(async (req, res, next) => {
+  res.cookie('token', 'none', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true
+  })
+
+  res.status(200).json({
+    success: true,
+    data: {}
+  });
+});
+
+
+
 // @desc    GET current logged in user
 // @router  GET /api/v1/auth/me
 // @access  Private
 const getMe = asyncHandler(async (req, res, next) => {
   // const user = await User.findById(req.user.id);
-  const user = req.user;
+  const user = req.user; // (protect)
 
   res.status(200).json({
     success: true,
@@ -187,4 +204,4 @@ const resetPassword = asyncHandler(async (req, res, next) => {
 });
 
 
-export { register, login, getMe, forgotPassword, resetPassword, updateDetails, updatePassword };
+export { register, login, logout, getMe, forgotPassword, resetPassword, updateDetails, updatePassword };
