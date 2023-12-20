@@ -44,7 +44,6 @@ const CourseSchema = new mongoose.Schema({
 });
 
 // Static method to get avg of course tuitions
-// Static method to get avg of course tuitions
 CourseSchema.statics.getAverageCost = async function (bootcampId, deletedCourseTuition) {
   const obj = await this.aggregate([
     {
@@ -54,16 +53,16 @@ CourseSchema.statics.getAverageCost = async function (bootcampId, deletedCourseT
       $group: {
         _id: "$bootcamp",
         averageCost: { $avg: "$tuition" },
-        count: { $sum: 1 }
-      },
+        courses: { $push: "$_id" } // Push the document IDs into an array
+      }
     },
   ]);
 
   if (obj.length > 0) {
     // If the deletedCourseTuition is provided, subtract it from the aggregate
     if (deletedCourseTuition) {
-      const updatedTotalTuition = obj[0].averageCost * obj[0].count - deletedCourseTuition;
-      const updatedAverageCost = obj[0].count > 1 ? updatedTotalTuition / (obj[0].count - 1) : 0;
+      const updatedTotalTuition = obj[0].averageCost * obj[0].courses.length - deletedCourseTuition;
+      const updatedAverageCost = obj[0].courses.length > 1 ? updatedTotalTuition / (obj[0].courses.length - 1) : 0;
       obj[0].averageCost = updatedAverageCost;
     }
 
@@ -83,7 +82,6 @@ CourseSchema.post("save", function () {
   this.constructor.getAverageCost(this.bootcamp);
 });
 
-// Call getAverage before remove
 // Call getAverageCost before delete
 CourseSchema.pre('deleteOne', { document: true }, async function () {
   // Call getAverageCost before deleting the course
