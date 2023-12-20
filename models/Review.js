@@ -37,8 +37,8 @@ const ReviewSchema = new mongoose.Schema({
 ReviewSchema.index({ bootcamp: 1, user: 1 }, { unique: true });
 
 
-// Static method to get avg of bootcamp ratings
-ReviewSchema.statics.getAverageRating = async function (bootcampId) {
+// Static method to get avg of review ratings
+ReviewSchema.statics.getAverageRating = async function (bootcampId, deletedReview) {
   const obj = await this.aggregate([
     {
       $match: { bootcamp: bootcampId },
@@ -46,30 +46,39 @@ ReviewSchema.statics.getAverageRating = async function (bootcampId) {
     {
       $group: {
         _id: "$bootcamp",
-        // average (Aggregation) returns the average value of the numeric values. ignores non-numeric values (returns null)
         averageRating: { $avg: "$rating" },
-      },
+        reviews: { $push: "$_id" } // Push the document IDs into an array
+      }
     },
   ]);
-  
-  // try {
-  //   const testSaveTrigger = await this.model("Bootcamp").findByIdAndUpdate(bootcampId, {
-  //     averageRating: obj[0].averageRating
-  //   })
-  //   console.log("test save trigger from update controller: ", testSaveTrigger)
-  // } catch (err) {
-  //   console.error(err);
-  // }
+
+  if (obj.length > 0) {
+    // If the deletedReview is provided, subtract it from the aggregate
+    if (deletedReview) {
+      const updatedTotalRating = obj[0].averageRating * obj[0].reviews.length - deletedReview;
+      const updatedAverageRating = obj[0].reviews.length > 1 ? updatedTotalRating / (obj[0].reviews.length - 1) : 0;
+      obj[0].averageRating = updatedAverageRating;
+    }
+
+    try {
+      await this.model("Bootcamp").findByIdAndUpdate(bootcampId, {
+        averageRating: obj[0].averageRating
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
 };
 
-// Call getAverageRating after save
-ReviewSchema.post("save", async function () {
-  await this.constructor.getAverageRating(this.bootcamp);
+
+// Call getAverage after save
+ReviewSchema.post("save", function () {
+  this.constructor.getAverageRating(this.bootcamp);
 });
 
-// Call getAverageRating before delete
-ReviewSchema.pre('deleteOne', function() {
-  this.constructor.getAverageRating(this.bootcamp);
+// Call getAverageRating before deleting the review (with its rating value)
+ReviewSchema.pre('deleteOne', { document: true }, async function () {
+  await this.constructor.getAverageRating(this.bootcamp, this.rating);
 });
 
 export default mongoose.model("Review", ReviewSchema);

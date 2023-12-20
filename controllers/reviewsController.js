@@ -87,16 +87,12 @@ const updateReview = asyncHandler(async (req, res, next) => {
     );
   }
   
-  // await review.updateOne(req.body, {
-  //   new: true,
-  //   runValidators: true,
-  // });
   review = await Review.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
 
-
+  await review.save(); // triggers the post middleware 
   res.status(201).json({ success: true, data: review });
 });
 
