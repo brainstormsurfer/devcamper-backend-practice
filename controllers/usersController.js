@@ -1,5 +1,4 @@
 // Authentication
-import ErrorResponse from "../utils/errorResponse.js";
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/User.js";
 

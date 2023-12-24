@@ -1,27 +1,32 @@
+import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-
-import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+
+// Security Middlewares
+import configureXssMiddleware from "./path-to-xss-middleware";
+import mongoSanitize from "express-mongo-sanitize";
+import helmet from "helmet";
+
 import colors from "colors";
 import fileUpload from "express-fileupload";
 import errorHandler from "./middleware/errorHandler.js";
 import connectDB from "./config/db.js";
+
+// Route files
+import bootcamps from "./routes/bootcampsRoutes.js";
+import courses from "./routes/coursesRoutes.js";
+import auth from "./routes/authRoutes.js";
+import users from "./routes/usersRoutes.js";
+import reviews from "./routes/reviewsRoutes.js";
 
 //Load env vars (due to configuration in a separate file (e.g., config.env), we should specify the path when calling dotenv.config():
 dotenv.config({ path: "config/config.env" });
 
 // Connect to database
 connectDB();
-
-// Route files
-import bootcamps from "./routes/bootcampsRoutes.js";
-import courses from "./routes/coursesRoutes.js";
-import auth from "./routes/authRoutes.js";
-import users from "./routes/usersRoutes.js"
-import reviews from "./routes/reviewsRoutes.js"
 
 const app = express();
 
@@ -38,6 +43,19 @@ if (process.env.NODE_ENV === "development") {
 
 // File uploading (such as a photo for a bootcamp)
 app.use(fileUpload());
+
+// --- Security Middlewares ----
+
+// Prevent XSS attacks
+app.use(configureXssMiddleware());
+
+// Sanitize Data
+app.use(mongoSanitize());
+
+// Set security headers
+app.use(helmet());
+
+// -------------------------------
 
 // Set static folder
 const __filename = fileURLToPath(import.meta.url);
@@ -71,7 +89,7 @@ const server = app.listen(
 
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (err, promise) => {
-  console.log(`Error: ${err.message}`.red);  
+  console.log(`Error: ${err.message}`.red);
   // Close server & exit process
   server.close(() => process.exit(1));
 });
