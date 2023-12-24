@@ -6,7 +6,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
 // Security Middlewares
-import configureXssMiddleware from "./path-to-xss-middleware";
+import {configureXssMiddleware} from './middleware/configureXssMiddleware.js'
 import mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
 

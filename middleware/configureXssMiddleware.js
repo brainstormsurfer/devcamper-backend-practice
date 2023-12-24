@@ -1,7 +1,7 @@
 
 import xss from 'xss';
 
-const configureXssMiddleware = () => {
+export const configureXssMiddleware = () => {
   // Define your custom options for xss middleware
   const xssOptions = {
     // Specify your custom options here
@@ -30,5 +30,3 @@ const configureXssMiddleware = () => {
     }
   }
 };
-
-export default configureXssMiddleware;
