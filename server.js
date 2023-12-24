@@ -6,9 +6,12 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
 // Security Middlewares
-import {configureXssMiddleware} from './middleware/configureXssMiddleware.js'
+import { configureXssMiddleware } from "./middleware/configureXssMiddleware.js";
 import mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import hpp from "hpp";
+import cors from "cors"
 
 import colors from "colors";
 import fileUpload from "express-fileupload";
@@ -54,6 +57,21 @@ app.use(mongoSanitize());
 
 // Set security headers
 app.use(helmet());
+
+// Rate limiting    (status code: 429 - too many requests)
+const limiter = rateLimit({
+  // 100 requests per 10 mins
+  windowMs: 10 * 60 * 1000, 
+  max: 100,
+});
+app.use(limiter);
+
+// Prevent http param pollution
+app.use(hpp());
+
+// Enable CORS
+app.use(cors())
+
 
 // -------------------------------
 
