@@ -1,0 +1,6 @@
+# .vercelignore
+node_modules
+build
+dist
+*.log
+s
