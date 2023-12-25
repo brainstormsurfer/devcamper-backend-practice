@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import crypto from 'node:crypto';;
+import crypto from "crypto"
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -33,9 +33,6 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-// Encrypt password using bcrypt
-// (*A middleware event which triggered by the saving action)
-// checks whether the password field is modified before hashing it. If the password is not modified, it means the document is being saved for reasons other than a password change, so the middleware skips the hashing process.
 UserSchema.pre("save", async function (next) {
   if (!this.isModified('password')) {
     next()
@@ -44,36 +41,24 @@ UserSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// With ".methods" we set an instance method ('getSignedJwtToken'),
-// while static functions called by the model itself (e.g. User.delete())
-// Here we create the signing-JWT to the user (User's instance) that get initialized from the model
-// (And this is also why and how it has access to "this")
 UserSchema.methods.getSignedJwtToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };
 
-// Match user's entered password to hashed password in database
-// (compare between the entered pw which is plain text, to
-// the hashed pw in the database for this particular user, which is encrypted
-// and return a promise with a boolean value )
 UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Generate and hash password token
 UserSchema.methods.getResetPasswordToken = function () {
-  // Generate token
   const resetToken = crypto.randomBytes(20).toString("hex");
 
-  // Hash token and set to resetPasswordToken field
   this.resetPasswordToken = crypto
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
 
-  // Set expire
   this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
 
   return resetToken;

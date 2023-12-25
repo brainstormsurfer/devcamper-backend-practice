@@ -3,7 +3,7 @@ import ErrorResponse from "../utils/errorResponse.js";
 import asyncHandler from "./../middleware/asyncHandler.js";
 import User from "../models/User.js";
 import { sendEmail } from "../utils/sendEmail.js";
-import crypto from "node:crypto";
+import crypto from "crypto"
 import { sendTokenResponse } from "../utils/sendTokenResponse.js";
 
 // @desc    Register user

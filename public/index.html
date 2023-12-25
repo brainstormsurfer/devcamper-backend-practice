@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+        <script src="./js/jquery.1.12.4.min.js"></script>
+        <title>DevCamper API</title>
+    </head>
+    <body>
+        <div class=container-fluid>
+            <div class=row>
+                <div class="col-md-12 collection-intro">
+                    <h3>DevCamper API</h3>
+                    <p>
+                </div>
+                <div class=col-md-12>
+                    <div class=col-md-3>
+                        <ul>
+                            <li>
+                                <strong>
+                                    <a href=#Bootcamps>Bootcamps</a>
+                                </strong>
+                                <ul>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Bootcamps-GetAllBootcamps>Get All Bootcamps</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Bootcamps-GetSingleBootcamp>Get Single Bootcamp</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Bootcamps-CreateNewBootcamp>Create New Bootcamp</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Bootcamps-UpdateBootcamp>Update Bootcamp</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Bootcamps-DeleteBootcamp>Delete Bootcamp</a>
+                                </ul>
+                            <li>
+                                <strong>
+                                    <a href=#Courses>Courses</a>
+                                </strong>
+                                <ul>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Courses-GetAllCourses>Get All Courses</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Courses-GetBootbamp_27scourses>Get Bootbamp's courses</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Courses-GetaSingleCourse>Get a Single Course</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Courses-CreateACourse>Create A Course</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Courses-DeleteCourse>Delete Course</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Courses-UpdateCourse>Update Course</a>
+                                </ul>
+                            <li>
+                                <strong>
+                                    <a href=#Authentication>Authentication</a>
+                                </strong>
+                                <ul>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Authentication-Users>Users</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Authentication-RegisterUser>Register User</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Authentication-LoginUser>Login User</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Authentication-GetMe>Get Me</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Authentication-ForgotPassword>Forgot Password</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Authentication-ResetPassword>Reset Password</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Authentication-UpdateUserDertails>Update User Dertails</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Authentication-Updatepassword>Update password</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Authentication-LogoutUser>Logout User</a>
+                                </ul>
+                            <li>
+                                <strong>
+                                    <a href=#Reviews>Reviews</a>
+                                </strong>
+                                <ul>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Reviews-AddReviewForBootcamp>Add Review For Bootcamp</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Reviews-GetReviewsForBootcamp>Get Reviews For Bootcamp</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Reviews-GetReview>Get Review</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Reviews-GetAllReviews>Get All Reviews</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Reviews-DeleteReview>Delete Review</a>
+                                    <li>
+                                        <a class=endpoint_menu href=#jump-Reviews-UpdateReviewForBootcamp>Update Review For Bootcamp</a>
+                                </ul>
+                        </ul>
+                    </div>
+                    <div class=col-md-9>
+                        <div class="panel panel-default">
+                            <div class=panel-heading>
+                                <h3 class=panel-title id=Bootcamps>
+                                    Bootcamps<span class=badge>5</span>
+                                </h3>
+                            </div>
+                            <div class=panel-body>
+                                <p>
+                                <p>Boootcamps CRUD functionality
+    
+                                <div class=request-item>
+                                    <div class=panel-group id=accordion-Bootcamps>
+                                        <div class="panel panel-info" id=jump-Bootcamps-GetAllBootcamps>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-info data-toggle=collapse data-parent=#accordion-Bootcamps href=#collapse-Bootcamps-GetAllBootcamps>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Get All Bootcamps</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-info">GET</strong>
+                                                        &nbsp;{{URL}}/api/v1/bootcamps
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Bootcamps-GetAllBootcamps class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Fetch all bootcamps from database. Includes pagination, filtering, etc
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                                                <p>JSON Type
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-info" id=jump-Bootcamps-GetSingleBootcamp>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted"></small>
+                                                <a class=text-info data-toggle=collapse data-parent=#accordion-Bootcamps href=#collapse-Bootcamps-GetSingleBootcamp>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Get Single Bootcamp</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-info">GET</strong>
+                                                        &nbsp;{{URL}}/api/v1/bootcamps/6587934690c02e0688574efd
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Bootcamps-GetSingleBootcamp class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Get single bootcamp by ID
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-success" id=jump-Bootcamps-CreateNewBootcamp>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-success data-toggle=collapse data-parent=#accordion-Bootcamps href=#collapse-Bootcamps-CreateNewBootcamp>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Create New Bootcamp</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-success">POST</strong>
+                                                        &nbsp;{{URL}}/api/v1/bootcamps
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Bootcamps-CreateNewBootcamp class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Add new bootcamp to database. Must be authenticated and must be publisher or admin
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                                                <p>JSON Type
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;name &#34;: &#34;Grateful Chat &#34;,
+&#34;description &#34;: &#34;Modern tech bla bla bla &#34;,
+&#34;website &#34;: &#34;https://devworks.com &#34;,
+&#34;phone &#34;: &#34;(111) 111-1111 &#34;,
+&#34;email &#34;: &#34;enroll@devworks.com &#34;,
+&#34;address &#34;: &#34;233 Bay State Rd Boston MA 02215 &#34;,
+&#34;careers &#34;: [&#34;Web Development &#34;, &#34;UI/UX &#34;, &#34;Business &#34;],
+&#34;housing &#34;: true,
+&#34;jobAssistance &#34;: true,
+&#34;jobGuarantee &#34;: false,
+&#34;acceptGi &#34;: true
+}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-warning" id=jump-Bootcamps-UpdateBootcamp>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-warning data-toggle=collapse data-parent=#accordion-Bootcamps href=#collapse-Bootcamps-UpdateBootcamp>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Update Bootcamp</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-warning">PUT</strong>
+                                                        &nbsp;{{URL}}/api/v1/bootcamps/657e1811304b97cc1ecd9371
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Bootcamps-UpdateBootcamp class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Update single bootcamp in database
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                                                <p>JSON Type
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;housing &#34;: false
+}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-danger" id=jump-Bootcamps-DeleteBootcamp>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted"></small>
+                                                <a class=text-danger data-toggle=collapse data-parent=#accordion-Bootcamps href=#collapse-Bootcamps-DeleteBootcamp>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Delete Bootcamp</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-danger">DELETE</strong>
+                                                        &nbsp;{{URL}}/api/v1/bootcamps/6587963b23ce6c6f2339fed1
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Bootcamps-DeleteBootcamp class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Delete bootcamp from database
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class=panel-heading>
+                                <h3 class=panel-title id=Courses>
+                                    Courses
+<span class=badge>6</span>
+                                </h3>
+                            </div>
+                            <div class=panel-body>
+                                <p>
+                                <p>CRUD courses
+    
+                                <div class=request-item>
+                                    <div class=panel-group id=accordion-Courses>
+                                        <div class="panel panel-info" id=jump-Courses-GetAllCourses>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-info data-toggle=collapse data-parent=#accordion-Courses href=#collapse-Courses-GetAllCourses>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Get All Courses</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-info">GET</strong>
+                                                        &nbsp;{{URL}}/api/v1/courses
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Courses-GetAllCourses class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;tuition &#34;: 13000,
+&#34;minimumSkill &#34;: &#34;advanced &#34;}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-info" id=jump-Courses-GetBootbamp_27scourses>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted"></small>
+                                                <a class=text-info data-toggle=collapse data-parent=#accordion-Courses href=#collapse-Courses-GetBootbamp_27scourses>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Get Bootbamp's courses</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-info">GET</strong>
+                                                        &nbsp;{{URL}}/api/v1/bootcamps/5d725a1b7b292f5f8ceff788/courses
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Courses-GetBootbamp_27scourses class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Get all courses for a single bootcamp
+                                                        <p>(via Bootcamp &rsquo;s reverse populate with virtuals)
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-info" id=jump-Courses-GetaSingleCourse>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted"></small>
+                                                <a class=text-info data-toggle=collapse data-parent=#accordion-Courses href=#collapse-Courses-GetaSingleCourse>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Get a Single Course</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-info">GET</strong>
+                                                        &nbsp;{{URL}}/api/v1/courses/6582052263f4bed7ebfbf1ce
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Courses-GetaSingleCourse class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Get a single course by its Id
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-success" id=jump-Courses-CreateACourse>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-success data-toggle=collapse data-parent=#accordion-Courses href=#collapse-Courses-CreateACourse>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Create A Course</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-success">POST</strong>
+                                                        &nbsp;{{URL}}/api/v1/bootcamps/5d725a1b7b292f5f8ceff788/courses
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Courses-CreateACourse class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Create course for a specific bootcamp
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;title &#34;: &#34;IO &#34;,
+&#34;description &#34;: &#34;Get started building mobile applications for IOS using Swift and other tools &#34;,
+&#34;weeks &#34;: 4,
+&#34;tuition &#34;:510000,
+&#34;minimumSkill &#34;: &#34;advanced &#34;,
+&#34;scholarhipsAvailable &#34;: false
+}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-danger" id=jump-Courses-DeleteCourse>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-danger data-toggle=collapse data-parent=#accordion-Courses href=#collapse-Courses-DeleteCourse>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Delete Course</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-danger">DELETE</strong>
+                                                        &nbsp;{{URL}}/api/v1/courses/658233756637149ac9edd20f
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Courses-DeleteCourse class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Delete a course
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;tuition &#34;: 13000,
+&#34;minimumSkill &#34;: &#34;advanced &#34;}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-warning" id=jump-Courses-UpdateCourse>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-warning data-toggle=collapse data-parent=#accordion-Courses href=#collapse-Courses-UpdateCourse>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Update Course</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-warning">PUT</strong>
+                                                        &nbsp;{{URL}}/api/v1/courses/658233756637149ac9edd20f
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Courses-UpdateCourse class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Update course in database
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;tuition &#34;:100,
+&#34;minimumSkill &#34;: &#34;advanced &#34;}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class=panel-heading>
+                                <h3 class=panel-title id=Authentication>
+                                    Authentication
+<span class=badge>9</span>
+                                </h3>
+                            </div>
+                            <div class=panel-body>
+                                <p>
+                                <p>Routes for user authentication including register, login, reset password, etc
+    
+                                <div class=request-item>
+                                    <div class=panel-group id=accordion-Authentication>
+                                        <div class="panel panel-info" id=jump-Authentication-Users>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted"></small>
+                                                <a class=text-info data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-Users>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Users</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-info"></strong>
+                                                        &nbsp;
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Authentication-Users class="panel-collapse collapse">
+                                                <div class=panel-body></div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-success" id=jump-Authentication-RegisterUser>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-success data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-RegisterUser>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Register User</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-success">POST</strong>
+                                                        &nbsp;{{URL}}/api/v1/auth/register
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Authentication-RegisterUser class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Add user to the database with encrypted password
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                                                <p>JSON type
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;name &#34;: &#34;John Smith &#34;,
+&#34;email &#34;: &#34;miri@gmail.com &#34;,
+&#34;password &#34;: &#34;123456 &#34;,
+&#34;role &#34;: &#34;user &#34;}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-success" id=jump-Authentication-LoginUser>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-success data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-LoginUser>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Login User</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-success">POST</strong>
+                                                        &nbsp;http://localhost:5000/api/v1/auth/login
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Authentication-LoginUser class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Login a user with an email and password
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                                                <p>JSON type
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;email &#34;:&#34;user@gmail.com &#34;,
+&#34;password &#34;: &#34;123456 &#34;}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-info" id=jump-Authentication-GetMe>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-info data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-GetMe>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Get Me</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-info">GET</strong>
+                                                        &nbsp;http://localhost:5000/api/v1/auth/me
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Authentication-GetMe class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Get Logged in User via Token
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                                                <p>JSON type
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-success" id=jump-Authentication-ForgotPassword>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-success data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-ForgotPassword>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Forgot Password</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-success">POST</strong>
+                                                        &nbsp;{{URL}}/api/v1/auth/forgotpassword
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Authentication-ForgotPassword class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>generate password token and send email
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                                                <p>JSON type
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;email &#34;: &#34;john@gmail.com &#34;}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-warning" id=jump-Authentication-ResetPassword>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-warning data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-ResetPassword>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Reset Password</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-warning">PUT</strong>
+                                                        &nbsp;{{URL}}/api/v1/auth/resetpassword/f23c5e1da3e32530d092224598a2dcc37c6bcd0f
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Authentication-ResetPassword class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Reset user password using token
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                                                <p>JSON type
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;password &#34;: &#34;012345 &#34;}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-warning" id=jump-Authentication-UpdateUserDertails>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-warning data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-UpdateUserDertails>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Update User Dertails</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-warning">PUT</strong>
+                                                        &nbsp;{{URL}}/api/v1/auth/updatedetails
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Authentication-UpdateUserDertails class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>update logged in user with name and emai
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                                                <p>JSON type
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;email &#34;: &#34;john@gmail.com &#34;,
+&#34;name &#34;: &#34;John Doe &#34;}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-warning" id=jump-Authentication-Updatepassword>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-warning data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-Updatepassword>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Update password</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-warning">PUT</strong>
+                                                        &nbsp;{{URL}}/api/v1/auth/updatepassword
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Authentication-Updatepassword class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Update logged in user password, send in the body currentPassword and newPassword
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                                                <p>JSON Type
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;currentPassword &#34;: &#34;012345 &#34;,
+&#34;newPassword &#34;: &#34;123456 &#34;}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-info" id=jump-Authentication-LogoutUser>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-info data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-LogoutUser>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Logout User</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-info">GET</strong>
+                                                        &nbsp;{{URL}}/api/v1/auth/logout
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Authentication-LogoutUser class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Clear token cookie
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class=panel-heading>
+                                <h3 class=panel-title id=Reviews>
+                                    Reviews
+<span class=badge>6</span>
+                                </h3>
+                            </div>
+                            <div class=panel-body>
+                                <p>
+                                <p>Manage course reviews
+    
+                                <div class=request-item>
+                                    <div class=panel-group id=accordion-Reviews>
+                                        <div class="panel panel-success" id=jump-Reviews-AddReviewForBootcamp>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-success data-toggle=collapse data-parent=#accordion-Reviews href=#collapse-Reviews-AddReviewForBootcamp>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Add Review For Bootcamp</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-success">POST</strong>
+                                                        &nbsp;{{URL}}/api/v1/bootcamps/5d725a1b7b292f5f8ceff788/reviews
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Reviews-AddReviewForBootcamp class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Insert review for a specific bootcamp
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                                                <p>JSON Type
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;title &#34;: &#34;Nice BT &#34;,
+&#34;text &#34;: &#34;but WFT &#34;,
+&#34;rating &#34;: &#34;1 &#34;}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-info" id=jump-Reviews-GetReviewsForBootcamp>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted"></small>
+                                                <a class=text-info data-toggle=collapse data-parent=#accordion-Reviews href=#collapse-Reviews-GetReviewsForBootcamp>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Get Reviews For Bootcamp</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-info">GET</strong>
+                                                        &nbsp;{{URL}}/api/v1/bootcamps/5d725a1b7b292f5f8ceff788/reviews
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Reviews-GetReviewsForBootcamp class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>
+                                                            Fetch the reviews for a specific bootcamp<br>(via Bootcamp &rsquo;s reverse populate with virtuals)
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-info" id=jump-Reviews-GetReview>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted"></small>
+                                                <a class=text-info data-toggle=collapse data-parent=#accordion-Reviews href=#collapse-Reviews-GetReview>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Get Review</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-info">GET</strong>
+                                                        &nbsp;{{URL}}/api/v1/reviews/6581a34d218ea7a4d60e5bc9
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Reviews-GetReview class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Get a single review
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-info" id=jump-Reviews-GetAllReviews>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-info data-toggle=collapse data-parent=#accordion-Reviews href=#collapse-Reviews-GetAllReviews>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Get All Reviews</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-info">GET</strong>
+                                                        &nbsp;{{URL}}/api/v1/reviews
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Reviews-GetAllReviews class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Get all reviews from database and populate with bootcamp name anf description
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                                                <p>JSON Type
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;title &#34;: &#34;my rew &#34;,
+&#34;text &#34;: &#34;what afsdfsdfs dfsdfsdfsd fsd dasdasdassdfsd f sd sd f sdfsdf sdf sdf sdfsdfsdfsdfsd fsd fsdfsdfsdf sd sfdre you &#34;,
+&#34;rating &#34;: &#34;4 &#34;}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-danger" id=jump-Reviews-DeleteReview>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-danger data-toggle=collapse data-parent=#accordion-Reviews href=#collapse-Reviews-DeleteReview>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Delete Review</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-danger">DELETE</strong>
+                                                        &nbsp;{{URL}}/api/v1/reviews/65823ca530996ef09fcc8d4a
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Reviews-DeleteReview class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Delete review from database
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-warning" id=jump-Reviews-UpdateReviewForBootcamp>
+                                            <div class=panel-heading>
+                                                <small class="pull-right text-muted">raw</small>
+                                                <a class=text-warning data-toggle=collapse data-parent=#accordion-Reviews href=#collapse-Reviews-UpdateReviewForBootcamp>
+                                                    <h4 class=panel-title>
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        <strong>Update Review For Bootcamp</strong>
+                                                        &nbsp;|&nbsp;<strong class="request-method border-warning">PUT</strong>
+                                                        &nbsp;{{URL}}/api/v1/reviews/65823ca530996ef09fcc8d4a
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id=collapse-Reviews-UpdateReviewForBootcamp class="panel-collapse collapse">
+                                                <div class=panel-body>
+                                                    <h5 class="label label-default">Description</h5>
+                                                    <br>
+                                                    <small>
+                                                        <p>Update review in database
+                                                    </small>
+                                                    <br>
+                                                    <br>
+                                                    <h5 class="label label-warning">Headers</h5>
+                                                    <table class="table table-hover" aria-describedby="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Key
+                                                                <th>Value
+                                                                <th>
+                                                                    Description
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Content-Type
+                                                                            <td>application/json
+                                                                            <td>
+                                                                                <p>JSON Type
+                                                    </table>
+                                                    <h5 class="label label-primary">Body</h5>
+                                                    <span class=resp-prettyprint>{
+&#34;title &#34;: &#34;AWESOME BT &#34;,
+&#34;rating &#34;: 10
+}</span>
+                                                    <div class=clearfix></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <footer class="navbar-default navbar-fixed-bottom">
+                <div class=container-fluid>
+                    <div class="span12 text-center">
+                        <span data-toggle=tooltip title="If the application help you, please feel free to give a star to the project in github. Your star inspire me to work more on open-source projects like this!">
+                            Generated at 2023-12-24 19:58:02 by <a href=https://github.com/thedevsaddam/docgen target=_blank class=text-muted>docgen</a>
+                        </span>
+                    </div>
+                </div>
+            </footer>
+            <script src="./js/jquery.1.12.4.min.js" nonce="{{nonce}}"></script>
+    </body>
+</html>

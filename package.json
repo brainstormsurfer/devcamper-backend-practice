@@ -5,6 +5,7 @@
   "main": "/server.js",
   "type": "module",
   "scripts": {
+    "generate-docs": "npx docgen-tool run -i . -o ./docs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "set NODE_ENV=production && node server",
     "dev": "nodemon server"
