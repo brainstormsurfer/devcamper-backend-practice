@@ -1,22 +1,16 @@
 {
   "name": "devcamper_api",
   "version": "1.0.0",
-  "description": "Devcamper backend API",
+  "description": "Devcamper Backend API",
   "main": "/server.js",
   "type": "module", 
-  "scripts": {    
-      "generate-docs": "npx docgen-tool run -i . -o ./docs",
-      "build": "rimraf dist && tsc -p tsconfig.json && yarn copy:files",
-      "run:build": "dist/docgen.js",
-      "build:docs": "ts-node src/docgen.js run -i src/docs -o ./docs -p -m -n -d 40000",
-      "build:docs:nopdf": "ts-node src/docgen.js run -i src/docs -m -n -o ./docs",
-      "build:styles": "sass --no-source-map src/styles/main.scss src/include/require/styles/framework.css",
-      "start": "set NODE_ENV=production && node server",
-      "dev": "nodemon server"
-    }
-    
+  "scripts": {
+    "generate-docs": "npx docgen-tool run -i . -o ./docs",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set NODE_ENV=production && node server",
+    "dev": "nodemon server"
   },
-  "author": "Brad Traversy",
+  "author": "brainstormsurfer",
   "license": "MIT",
   "devDependencies": {
     "nodemon": "^3.0.2"
@@ -40,4 +34,5 @@
     "nodemailer": "^6.9.7",
     "slugify": "^1.6.6",
     "xss": "^1.0.14"
+  }
 }
