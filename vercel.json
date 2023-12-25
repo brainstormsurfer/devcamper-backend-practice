@@ -13,3 +13,6 @@
       }
     ]
   }
+
+
+  //{  "rewrites": [{ "source": "/(.*)", "destination": "/api" }] }
