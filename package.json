@@ -2,15 +2,15 @@
   "name": "devcamper_api",
   "version": "1.0.0",
   "description": "Devcamper backend API",
-  "main": "/server.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "generate-docs": "npx docgen-tool run -i . -o ./docs",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1",    
     "start": "set NODE_ENV=production && node server",
     "dev": "nodemon server"
   },
-  "author": "Brad Traversy",
+  "author": "brainstormsurfer",
   "license": "MIT",
   "devDependencies": {
     "nodemon": "^3.0.2"

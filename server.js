@@ -14,16 +14,40 @@ import rateLimit from "express-rate-limit";
 import hpp from "hpp";
 import cors from "cors";
 
-// Load environment variables
+
+import fileUpload from "express-fileupload";
+import errorHandler from "./middleware/errorHandler.js";
+import connectDB from "./config/db.js";
+
+// Route files
+import bootcamps from "./routes/bootcampsRoutes.js";
+import courses from "./routes/coursesRoutes.js";
+import auth from "./routes/authRoutes.js";
+import users from "./routes/usersRoutes.js";
+import reviews from "./routes/reviewsRoutes.js";
+
+//Load env vars (due to configuration in a separate file (e.g., config.env), we should specify the path when calling dotenv.config():
 dotenv.config({ path: "config/config.env" });
 
-// Connect to the database
-import connectDB from "./config/db.js";
+// Connect to database
 connectDB();
 
 const app = express();
 
-// Body parser
+app.use((req, res, next) => {
+  // Step 1: Generate a Nonce
+  const nonce = crypto.randomBytes(16).toString('base64');
+
+  // Step 2: Assign Nonce to Inline Scripts
+  res.locals.nonce = nonce;
+
+  // Step 3: Update Content Security Policy
+  res.setHeader('Content-Security-Policy', `script-src 'self' 'nonce-${nonce}'`);
+  
+  next();
+});
+
+//Body parser
 app.use(express.json());
 
 // Cookie parser
@@ -34,14 +58,10 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-// Content Security Policy (CSP) with nonce
-app.use((req, res, next) => {  
-  const nonce = crypto.randomBytes(16).toString("base64");
-  res.locals.nonce = nonce;
-  res.setHeader('Content-Security-Policy', `script-src 'self' 'nonce-${nonce}' https://code.jquery.com;`);
-  next();
-});
+// File uploading (such as a photo for a bootcamp)
+app.use(fileUpload());
 
+// --- Security Middlewares ----
 
 // Prevent XSS attacks
 app.use(configureXssMiddleware());
@@ -52,10 +72,10 @@ app.use(mongoSanitize());
 // Set security headers
 app.use(helmet());
 
-// Rate limiting (status code: 429 - too many requests)
+// Rate limiting    (status code: 429 - too many requests)
 const limiter = rateLimit({
   // 100 requests per 10 mins
-  windowMs: 10 * 60 * 1000,
+  windowMs: 10 * 60 * 1000, 
   max: 100,
 });
 app.use(limiter);
@@ -64,7 +84,8 @@ app.use(limiter);
 app.use(hpp());
 
 // Enable CORS
-app.use(cors());
+app.use(cors())
+
 
 // -------------------------------
 
@@ -74,20 +95,12 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "public")));
 
 // Mount routes
-import bootcamps from "./routes/bootcampsRoutes.js";
-import courses from "./routes/coursesRoutes.js";
-import auth from "./routes/authRoutes.js";
-import users from "./routes/usersRoutes.js";
-import reviews from "./routes/reviewsRoutes.js";
-
 app.use("/api/v1/bootcamps", bootcamps);
 app.use("/api/v1/courses", courses);
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/users", users);
 app.use("/api/v1/reviews", reviews);
 
-// Error handling middleware
-import errorHandler from "./middleware/errorHandler.js";
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
@@ -99,9 +112,16 @@ const server = app.listen(
   )
 );
 
+// Mongoose connection error handler
+// mongoose.connection.on("error", (err) => {
+//   console.error(`Error: ${err.message}`.red);
+// Close server & exit process
+//   server.close(() => process.exit(1));
+// });
+
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (err, promise) => {
-  console.error(`Error: ${err.message}`.red);
+  console.log(`Error: ${err.message}`.red);
   // Close server & exit process
   server.close(() => process.exit(1));
 });
