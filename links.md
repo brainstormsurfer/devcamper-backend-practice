@@ -1,7 +1,7 @@
 # Links & Documentation
 
-- Final Repo - https://github.com/bradtraversy/devcamper-api
-- Final Deployed Project - https://devcamper.io
+- Final Repo - https://https://github.com/brainstormsurfer/devcamper-backend-practice
+- Final Deployed Project - https://devcamper-backend.io
 - Specs Sheet - https://gist.github.com/bradtraversy/01adb248df70fb29e98c30cf659042cf
 
 ## Tools
