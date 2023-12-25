@@ -35,15 +35,10 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Content Security Policy (CSP) with nonce
-app.use((req, res, next) => {
-  
-    console.log('Request Headers:', req.headers);
-  
-  
+app.use((req, res, next) => {  
   const nonce = crypto.randomBytes(16).toString("base64");
   res.locals.nonce = nonce;
   res.setHeader('Content-Security-Policy', `script-src 'self' 'nonce-${nonce}' https://code.jquery.com;`);
-  console.log('Headers:', res.getHeaders());
   next();
 });
 
