@@ -77,6 +77,7 @@ const limiter = rateLimit({
   // 100 requests per 10 mins
   windowMs: 10 * 60 * 1000, 
   max: 100,
+  trustProxy: 1,
 });
 app.use(limiter);
 
@@ -102,6 +103,8 @@ app.use("/api/v1/users", users);
 app.use("/api/v1/reviews", reviews);
 
 app.use(errorHandler);
+
+app.set('trust proxy', 1);
 
 const PORT = process.env.PORT || 5000;
 
