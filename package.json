@@ -1,13 +1,12 @@
 {
-  "name": "devcamper_api",
+  "name": "devcamper-backend",
   "version": "1.0.0",
   "description": "Devcamper backend API",
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "generate-docs": "npx docgen-tool run -i . -o ./docs",
     "test": "echo \"Error: no test specified\" && exit 1",    
-    "start": "set NODE_ENV=production && node server",
+    "start": "NODE_ENV=production node server",
     "dev": "nodemon server"
   },
   "author": "brainstormsurfer",
