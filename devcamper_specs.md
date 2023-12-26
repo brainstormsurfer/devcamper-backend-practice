@@ -1,6 +1,6 @@
 # DevCamper Backend API Specifications
 
-Create the backend for a bootcamp directory website. The frontend/UI will be created by another team (future course). The html/css template has been created and can be used as a reference for functionality. All of the functionality below needs to be fully implmented in this project.
+Create the backend for a bootcamp directory website. The frontend/UI will be created by another team (future course). The html/css template has been created and can be used as a reference for functionality. All of the functionality below needs to be fully implemented in this project.
 
 ### Bootcamps
 - List all bootcamps in the database
@@ -87,7 +87,7 @@ Create the backend for a bootcamp directory website. The frontend/UI will be cre
 - Prevent cross site scripting - XSS
 - Prevent NoSQL injections
 - Add a rate limit for requests of 100 requests per 10 minutes
-- Protect against http param polution
+- Protect against http param pollution
 - Add headers for security (helmet)
 - Use cors to make API public (for now)
 
@@ -96,12 +96,16 @@ Create the backend for a bootcamp directory website. The frontend/UI will be cre
 - Use docgen to create HTML files from Postman
 - Add html files as the / route for the api
 
-## Polishing Before Deployment
-- Turn the messy unreadable output file of DocGen into an elegant clean one
-By extract the jQuery and Bootstrap files from the HTML and organize all of those.
+## Polishing Before Deployment (Separation of concerns)
+- Extracting and isolating both jQuery and Bootstrap enormous blocks of messy unreadable code
+which was originally part of the DocGen generated HTML file (converted out of the API json).
+(* Some 'separations of concerns' demanding so many concerns along the process)
 
-## Deployment (Render)
-- Push to Github
-- Deploy with Render (Build : npm install, Start : node server.js)
-- Deploy with Vercel to experience different deployment environments,
-As well as practicing the integration between MongoDB and Vercel.
+## Deployment (Render, Vercel)
+- Deploy with Render (Build - npm install, Start - node server.js)
+- Deploy with Vercel for the purpose of experiencing not only 2 different production environments,
+But also for the integration between MongoDB and Vercel which require another layer of adjustments.
+
+## Conclusion
+- Expect no mercy when you're dealing with a 4 years old course.
+Now excuse me... I have so many layers of sweat to peel off of myself.
