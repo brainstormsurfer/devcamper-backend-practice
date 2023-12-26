@@ -96,22 +96,12 @@ Create the backend for a bootcamp directory website. The frontend/UI will be cre
 - Use docgen to create HTML files from Postman
 - Add html files as the / route for the api
 
-## Deployment (Digital Ocean)
-- Push to Github
-- Create a droplet - https://m.do.co/c/5424d440c63a
-- Clone repo on to server
-- Use PM2 process manager
-- Enable firewall (ufw) and open needed ports
-- Create an NGINX reverse proxy for port 80
-- Connect a domain name
-- Install an SSL using Let's Encrypt
+## Polishing Before Deployment
+- Turn the messy unreadable output file of DocGen into an elegant clean one
+By extract the jQuery and Bootstrap files from the HTML and organize all of those.
 
-## Code Related Suggestions
-- NPM scripts for dev and production env
-- Config file for important constants
-- Use controller methods with documented descriptions/routes
-- Error handling middleware
-- Authentication middleware for protecting routes and setting user roles
-- Validation using Mongoose and no external libraries
-- Use async/await (create middleware to clean up controller methods)
-- Create a database seeder to import and destroy data
+## Deployment (Render)
+- Push to Github
+- Deploy with Render (Build : npm install, Start : node server.js)
+- Deploy with Vercel to experience different deployment environments,
+As well as practicing the integration between MongoDB and Vercel.

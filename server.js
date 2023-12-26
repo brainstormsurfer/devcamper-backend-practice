@@ -115,13 +115,6 @@ const server = app.listen(
   )
 );
 
-// Mongoose connection error handler
-// mongoose.connection.on("error", (err) => {
-//   console.error(`Error: ${err.message}`.red);
-// Close server & exit process
-//   server.close(() => process.exit(1));
-// });
-
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (err, promise) => {
   console.log(`Error: ${err.message}`.red);

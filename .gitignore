@@ -3,3 +3,4 @@ config/config.env
 eval*.*
 /temp
 temp/
+config/vercel.env
